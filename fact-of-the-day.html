@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+  FACT-OF-THE-DAY PAGE
+  ---------------------
+  This is a tiny, separate HTML page. It is NOT part of index.html.
+  We load it INSIDE index.html using an <iframe>, which is the modern
+  way to show one web page inside another.
+
+  Why is this file here?
+  The syllabus asks about "frames". Long ago, websites used tags called
+  <frameset> and <frame> to split a browser window into boxes, each
+  showing a different page. Those tags are now deprecated (old and no
+  longer recommended) because they caused problems with bookmarking,
+  accessibility and search engines.
+  The modern replacement is the <iframe> tag - it does the same basic
+  job (showing one HTML page inside another) but works properly with
+  today's web. You can see it used in index.html, inside the Atlas
+  section, with a comment pointing to this exact file.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Geography Fact of the Day</title>
+  <style>
+    /* This tiny page has its own tiny stylesheet, written right here
+       with a <style> tag instead of a separate .css file. That is a
+       valid but less common way to add CSS - useful for a very small,
+       one-off page like this one. */
+    body {
+      font-family: 'Atkinson Hyperlegible', Verdana, sans-serif;
+      background: #FBF3E3;
+      color: #22303A;
+      margin: 0;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+    h2 { margin-top: 0; color: #1B3A4B; font-size: 1.1rem; }
+    p { line-height: 1.5; margin-bottom: 0; }
+    .badge {
+      display: inline-block;
+      background: #E3A857;
+      color: #22303A;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <span class="badge">Loaded from a separate file, inside an iframe</span>
+  <h2>Did you know?</h2>
+  <p id="fact-text">Russia is so wide that it stretches across eleven time zones - more than any other country on Earth.</p>
+
+  <script>
+    // A tiny list of facts. Each time this page loads, JavaScript
+    // picks one at random using Math.random() (a built-in object/method)
+    // and an array (a built-in data structure) - the same JavaScript
+    // ideas used in the main site's script.js.
+    var facts = [
+      "Russia is so wide that it stretches across eleven time zones - more than any other country on Earth.",
+      "Africa is the only continent that sits in all four hemispheres: north, south, east and west.",
+      "Vatican City is the smallest country in the world - you could walk across it in about 20 minutes.",
+      "The Pacific Ocean is bigger than all of the world's land put together.",
+      "Canada has more lakes than the rest of the world's countries combined."
+    ];
+    var randomIndex = Math.floor(Math.random() * facts.length);
+    document.getElementById("fact-text").textContent = facts[randomIndex];
+  </script>
+</body>
+</html>

@@ -1,0 +1,599 @@
+/* =================================================================
+   WORLD ATLAS - styles.css
+   =================================================================
+   This file gives the HTML its look. It never adds or removes
+   content - it only changes how existing content appears.
+
+   It is linked from index.html with:
+     <link rel="stylesheet" href="styles.css">
+   That single line is how a page "imports" an external stylesheet.
+   ================================================================= */
+
+/* -----------------------------------------------------------------
+   1. CSS SELECTOR TYPES (a quick reference, used all over this file)
+   -----------------------------------------------------------------
+   Type selector    ->  header { }        matches every <header>
+   Class selector   ->  .card { }         matches every element with class="card"
+   ID selector      ->  #site-header { }  matches the ONE element with id="site-header"
+   Attribute sel.   ->  input[type="search"] { }  matches inputs of one type
+   Descendant sel.  ->  nav ul li { }     matches <li> inside <ul> inside <nav>
+   Pseudo-class     ->  .btn:hover { }    matches a state (mouse over the button)
+
+   IDs vs classes: use an ID for ONE unique element on the page
+   (like the single site header), and a class for a REUSABLE pattern
+   that appears many times (like every country card/row, every button).
+   ----------------------------------------------------------------- */
+
+:root {
+  /* CSS custom properties ("variables"). Defining colours once here
+     means every rule below can reuse the same names instead of
+     repeating hex codes - and changing the theme means editing one line. */
+  --ocean-deep: #1B3A4B;
+  --ocean-mid: #2C5770;
+  --parchment: #FBF3E3;
+  --parchment-deep: #F1E6CE;
+  --ink: #22303A;
+  --terracotta: #C1502E;
+  --gold: #E3A857;
+  --forest: #3F6B4F;
+  --white: #FFFFFF;
+  --danger: #B3261E;
+  --radius: 10px;
+  --shadow: 0 6px 18px rgba(27, 58, 75, 0.12);
+}
+
+/* -----------------------------------------------------------------
+   2. RESET-ISH BASICS + TYPOGRAPHY (fonts, text formatting)
+   ----------------------------------------------------------------- */
+* {
+  box-sizing: border-box; /* padding & border are counted INSIDE the
+                              width you set, instead of added on top -
+                              this avoids a very common box-model bug */
+}
+
+body {
+  margin: 0;
+  font-family: 'Atkinson Hyperlegible', Verdana, Arial, sans-serif;
+  background: var(--parchment);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  color: var(--ocean-deep);
+  line-height: 1.25;
+  margin-top: 0;
+}
+
+h1 { font-size: clamp(1.9rem, 4vw, 3rem); }
+h2 { font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 0.4em; }
+h3 { font-size: 1.2rem; }
+
+p { max-width: 70ch; } /* keeps text lines a comfortable reading length */
+
+a { color: var(--terracotta); }
+a:hover, a:focus { color: var(--forest); }
+
+code {
+  background: var(--parchment-deep);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.92em;
+}
+
+/* Visually-hidden helper: keeps text for screen readers without
+   showing it on screen - used on the table <caption> elements. */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: inherit;
+}
+.btn-primary {
+  background: var(--terracotta);
+  color: var(--white);
+}
+.btn-primary:hover, .btn-primary:focus {
+  background: #a5401f;
+  color: var(--white);
+}
+.btn-ghost {
+  background: transparent;
+  border-color: var(--ocean-deep);
+  color: var(--ocean-deep);
+}
+.btn-ghost:hover, .btn-ghost:focus {
+  background: var(--ocean-deep);
+  color: var(--white);
+}
+
+/* -----------------------------------------------------------------
+   4. LAYOUT: header / nav  (ID selector for the one unique header)
+   ----------------------------------------------------------------- */
+#site-header {
+  background: var(--ocean-deep);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: var(--shadow);
+}
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.logo {
+  color: var(--white);
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-mark { font-size: 1.4rem; }
+
+/* The nav list: a good example of styling an unordered list to look
+   nothing like a bulleted list, while still BEING one semantically. */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+nav ul li a {
+  color: var(--parchment);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+nav ul li a:hover, nav ul li a:focus {
+  background: rgba(255,255,255,0.12);
+  color: var(--white);
+}
+#nav-toggle {
+  display: none; /* only shown on small screens, see media query below */
+  background: transparent;
+  border: 1px solid var(--parchment);
+  color: var(--parchment);
+  font-size: 1.3rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* -----------------------------------------------------------------
+   5. SECTIONS / GENERAL PAGE LAYOUT (block elements)
+   -----------------------------------------------------------------
+   Every <section> is a BLOCK element: by default it takes the full
+   width available and starts on its own new line - unlike an
+   "inline" element such as <a> or <span>, which sits within a line
+   of text. We use that block behaviour here to stack whole sections
+   vertically down the page. */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 20px;
+}
+.section-intro { color: #43535D; }
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+.hero-text { flex: 1 1 420px; }
+.hero-art { flex: 0 0 auto; margin-inline: auto; }
+.eyebrow {
+  color: var(--terracotta);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.lede { font-size: 1.08rem; color: #3A4750; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+
+/* -----------------------------------------------------------------
+   6. ARCHITECTURE DIAGRAM (block elements + the box model at work)
+   ----------------------------------------------------------------- */
+.steps-list { padding-left: 20px; }
+.steps-list li { margin-bottom: 8px; }
+
+.architecture-diagram {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.arch-box {
+  background: var(--white);
+  border-radius: var(--radius);
+  /* BOX MODEL in action: content, then padding, then a border, then
+     the margin created by the gap above between flex children. */
+  padding: 18px 16px;
+  border: 3px solid var(--ocean-mid);
+  box-shadow: var(--shadow);
+  flex: 1 1 160px;
+  text-align: center;
+}
+.arch-box p { margin: 6px 0 0; font-size: 0.9rem; color: #4A5A63; }
+.arch-label { font-weight: 700; color: var(--ocean-deep); }
+.arch-html { border-color: var(--terracotta); }
+.arch-css { border-color: var(--gold); }
+.arch-js { border-color: var(--forest); }
+.arch-result { background: var(--ocean-deep); border-color: var(--ocean-deep); }
+.arch-result .arch-label, .arch-result p { color: var(--parchment); }
+.arch-arrow {
+  font-size: 1.6rem;
+  color: var(--ocean-mid);
+  font-weight: 700;
+}
+.arch-arrow-big { font-size: 2rem; }
+
+/* -----------------------------------------------------------------
+   7. CONTROLS BAR (search / filter / sort)
+   ----------------------------------------------------------------- */
+.controls-bar {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  background: var(--white);
+  padding: 18px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin: 20px 0 12px;
+}
+.control { display: flex; flex-direction: column; gap: 6px; }
+.control label { font-weight: 700; font-size: 0.9rem; }
+.control input, .control select {
+  padding: 8px 10px;
+  border: 2px solid #D8CFB8;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  background: var(--white);
+  color: var(--ink);
+}
+.control input:focus, .control select:focus {
+  outline: 3px solid var(--gold);
+  outline-offset: 1px;
+}
+#sort-direction-btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 2px solid var(--ocean-mid);
+  background: var(--white);
+  color: var(--ocean-deep);
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#result-count { color: #52616A; font-size: 0.95rem; }
+
+/* -----------------------------------------------------------------
+   8. TABLES (Atlas table + Learning Map table)
+   ----------------------------------------------------------------- */
+.table-wrap {
+  overflow-x: auto; /* lets wide tables scroll sideways instead of
+                        breaking the page layout on narrow screens */
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+thead { background: var(--ocean-deep); }
+thead th {
+  color: var(--parchment);
+  text-align: left;
+  padding: 12px 14px;
+  font-size: 0.92rem;
+}
+tbody td {
+  padding: 12px 14px;
+  border-top: 1px solid var(--parchment-deep);
+  vertical-align: middle;
+}
+tbody tr:nth-child(even) { background: #FDF9F0; }
+.flag-img {
+  width: 32px;
+  height: 22px;
+  object-fit: cover;
+  border-radius: 3px;
+  border: 1px solid #D8CFB8;
+  vertical-align: middle;
+}
+.flag-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 22px;
+  background: var(--parchment-deep);
+  color: var(--ocean-deep);
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 3px;
+  border: 1px solid #D8CFB8;
+}
+
+/* FRAME / iframe styling */
+.fact-frame-wrap { margin-top: 32px; }
+.tag {
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+.small-note { font-size: 0.92rem; color: #52616A; }
+.fact-frame {
+  width: 100%;
+  height: 140px;
+  border: 3px solid var(--ocean-mid);
+  border-radius: var(--radius);
+}
+
+/* -----------------------------------------------------------------
+   9. BOX MODEL PLAYGROUND (interactive)
+   ----------------------------------------------------------------- */
+.box-model-demo {
+  margin-top: 40px;
+  background: var(--white);
+  padding: 22px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.box-model-layout {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 16px;
+}
+.box-model-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 220px;
+}
+.box-model-controls input { width: 100%; }
+.box-model-stage {
+  flex: 1 1 260px;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background: var(--parchment-deep);
+  border-radius: var(--radius);
+}
+/* Each ".demo-layer" is labelled with its own background colour so the
+   four layers of the box model (margin, border, padding, content) are
+   visually easy to tell apart while the sliders change their sizes. */
+.demo-layer {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+}
+.demo-margin { background: #F6D9A8; border-radius: 8px; }
+.demo-border { background: var(--gold); border-style: solid; border-color: var(--terracotta); border-radius: 6px; }
+.demo-padding { background: #FFF8EA; }
+.demo-content {
+  background: var(--forest);
+  color: var(--white);
+  padding: 18px 24px;
+  border-radius: 4px;
+}
+
+/* -----------------------------------------------------------------
+   10. QUIZ
+   ----------------------------------------------------------------- */
+.quiz-app {
+  background: var(--white);
+  padding: 26px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  max-width: 640px;
+}
+#quiz-progress { color: var(--terracotta); font-weight: 700; margin: 0 0 4px; }
+.quiz-options {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0;
+}
+.quiz-options button {
+  text-align: left;
+  padding: 12px 14px;
+  border: 2px solid #D8CFB8;
+  border-radius: 8px;
+  background: var(--parchment);
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.quiz-options button:hover { border-color: var(--ocean-mid); }
+.quiz-options button.correct {
+  background: #E4F0E7;
+  border-color: var(--forest);
+}
+.quiz-options button.incorrect {
+  background: #F7E3E1;
+  border-color: var(--danger);
+}
+.quiz-options button:disabled { cursor: default; }
+#quiz-feedback { font-weight: 700; min-height: 1.4em; }
+.quiz-actions { display: flex; gap: 12px; }
+.quiz-actions button {
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 2px solid var(--ocean-deep);
+  background: var(--ocean-deep);
+  color: var(--white);
+  font-weight: 700;
+  cursor: pointer;
+}
+.quiz-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* -----------------------------------------------------------------
+   11. ABOUT
+   ----------------------------------------------------------------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 16px;
+}
+.about-grid ul { padding-left: 20px; }
+.about-grid li { margin-bottom: 8px; }
+
+/* -----------------------------------------------------------------
+   12. CONTACT FORM (web forms + JS validation styling hooks)
+   ----------------------------------------------------------------- */
+#feedback-form {
+  max-width: 560px;
+  background: var(--white);
+  padding: 26px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.form-row { margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; }
+.form-row label { font-weight: 700; }
+.form-row input, .form-row select, .form-row textarea {
+  padding: 10px 12px;
+  border: 2px solid #D8CFB8;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+  outline: 3px solid var(--gold);
+  outline-offset: 1px;
+}
+/* A class ADDED by JavaScript when a field fails validation - this is
+   a common pattern: CSS defines what "invalid" looks like, and JS
+   just toggles the class on and off. */
+.form-row.invalid input,
+.form-row.invalid select,
+.form-row.invalid textarea {
+  border-color: var(--danger);
+}
+.error-text {
+  color: var(--danger);
+  font-size: 0.88rem;
+  min-height: 1.2em;
+}
+#form-success {
+  color: var(--forest);
+  font-weight: 700;
+}
+
+/* -----------------------------------------------------------------
+   13. FOOTER
+   ----------------------------------------------------------------- */
+#site-footer {
+  background: var(--ocean-deep);
+  color: var(--parchment);
+  margin-top: 40px;
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 14px 0;
+}
+.footer-links a { color: var(--gold); }
+.fine-print { font-size: 0.85rem; color: #A9BAC2; }
+
+/* -----------------------------------------------------------------
+   14. RESPONSIVE BEHAVIOUR (phones, tablets, desktop)
+   -----------------------------------------------------------------
+   Media queries let different CSS rules apply depending on screen
+   width. Rules lower down in the file, inside a matching @media
+   block, override the earlier "desktop-first" rules above - another
+   real example of the cascade (source order) at work. */
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  #nav-toggle { display: inline-block; }
+  #primary-nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 20px;
+    background: var(--ocean-deep);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+  #primary-nav.open { display: flex; }
+
+  .hero { text-align: center; justify-content: center; }
+  .hero-actions { justify-content: center; }
+
+  /* Responsive TABLE -> CARD trick: hide the header row, then turn
+     each <tr> into a little card and use the data-label attribute
+     (set in the HTML) to print a label in front of every cell with
+     CSS's ::before pseudo-element and the attr() function. */
+  #atlas-table thead, #learning-table thead { display: none; }
+  #atlas-table tbody tr, #learning-table tbody tr {
+    display: block;
+    margin-bottom: 14px;
+    border: 1px solid var(--parchment-deep);
+    border-radius: 8px;
+    padding: 6px 10px;
+  }
+  #atlas-table tbody td, #learning-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    text-align: right;
+    border-top: 1px solid var(--parchment-deep);
+  }
+  #atlas-table tbody td::before, #learning-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    text-align: left;
+    color: var(--ocean-deep);
+  }
+}

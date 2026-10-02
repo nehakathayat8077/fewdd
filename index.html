@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>World Atlas - Learn Geography, HTML, CSS &amp; JavaScript</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Google Fonts: an external stylesheet, imported the same way. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ============ HEADER (appears on every "page" of the site) ============ -->
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="#home" class="logo">
+        <span class="logo-mark" aria-hidden="true">&#127760;</span>
+        World Atlas
+      </a>
+
+      <!-- Navigation is written as an unordered LIST of links (<ul><li><a>).
+           A nav bar is really just a styled list - a good example of
+           HTML lists and hyperlinks working together. -->
+      <nav aria-label="Main navigation">
+        <button id="nav-toggle" aria-expanded="false" aria-controls="primary-nav">
+          <span class="sr-only">Menu</span>
+          <span aria-hidden="true">&#9776;</span>
+        </button>
+        <ul id="primary-nav">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#atlas">Atlas</a></li>
+          <li><a href="#learning-map">Learning Map</a></li>
+          <li><a href="#quiz">Quiz</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ HOME SECTION ============ -->
+    <section id="home" class="section hero">
+      <div class="hero-text">
+        <p class="eyebrow">A beginner's website project</p>
+        <h1>Explore the world. Learn how the web is built.</h1>
+        <p class="lede">
+          World Atlas is a small, hand-built website for curious kids and
+          teachers. Browse real facts about countries, take a geography
+          quiz, and - underneath it all - see exactly how HTML, CSS and
+          JavaScript team up to make a website work.
+        </p>
+        <div class="hero-actions">
+          <a href="#atlas" class="btn btn-primary">Explore the Atlas</a>
+          <a href="#learning-map" class="btn btn-ghost">See how it's built</a>
+        </div>
+      </div>
+
+      <!-- A simple inline SVG "globe" graphic. Using SVG here means the
+           picture stays sharp on any screen size, and it needs no
+           external image file at all. -->
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 220 220" width="220" height="220">
+          <circle cx="110" cy="110" r="95" fill="#2C5770" />
+          <ellipse cx="110" cy="110" rx="95" ry="38" fill="none" stroke="#FBF3E3" stroke-width="2" opacity="0.5"/>
+          <ellipse cx="110" cy="110" rx="40" ry="95" fill="none" stroke="#FBF3E3" stroke-width="2" opacity="0.5"/>
+          <ellipse cx="110" cy="110" rx="70" ry="95" fill="none" stroke="#FBF3E3" stroke-width="2" opacity="0.5"/>
+          <path d="M40 80 Q70 60 100 85 T160 90 Q150 120 120 130 T70 150 Q40 130 40 80Z" fill="#3F6B4F" opacity="0.85"/>
+          <path d="M140 130 Q170 125 180 150 Q160 165 145 155Z" fill="#3F6B4F" opacity="0.85"/>
+          <circle cx="110" cy="110" r="95" fill="none" stroke="#E3A857" stroke-width="4"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============ HOW THE WEB WORKS (Unit 1) ============ -->
+    <section class="section" id="web-architecture" aria-labelledby="architecture-heading">
+      <h2 id="architecture-heading">How the web works</h2>
+      <p class="section-intro">
+        Before building web pages, it helps to know what happens when someone
+        visits one. Here is the short version, and how it maps onto this project.
+      </p>
+
+      <ol class="steps-list">
+        <li><strong>You type an address</strong> (like a website name) into a browser, or tap a link.</li>
+        <li><strong>The browser asks a server</strong> - a computer that stores the website's files - to send the page.</li>
+        <li><strong>The server replies</strong> with an HTML file, plus any CSS and JavaScript files it links to.</li>
+        <li><strong>The browser reads the HTML</strong>, applies the CSS, runs the JavaScript, and draws the page you see.</li>
+      </ol>
+
+      <!-- A tiny diagram made only from styled <div> elements - a good,
+           simple example of "block elements" and the CSS box model. -->
+      <div class="architecture-diagram">
+        <div class="arch-box arch-html">
+          <span class="arch-label">index.html</span>
+          <p>Structure &amp; content</p>
+        </div>
+        <div class="arch-arrow" aria-hidden="true">+</div>
+        <div class="arch-box arch-css">
+          <span class="arch-label">styles.css</span>
+          <p>Look &amp; layout</p>
+        </div>
+        <div class="arch-arrow" aria-hidden="true">+</div>
+        <div class="arch-box arch-js">
+          <span class="arch-label">script.js</span>
+          <p>Behaviour &amp; interaction</p>
+        </div>
+        <div class="arch-arrow arch-arrow-big" aria-hidden="true">=</div>
+        <div class="arch-box arch-result">
+          <span class="arch-label">This website</span>
+          <p>What you're using right now</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ATLAS SECTION (Unit 2: tables, images, frames) ============ -->
+    <section class="section" id="atlas" aria-labelledby="atlas-heading">
+      <h2 id="atlas-heading">World Atlas data</h2>
+      <p class="section-intro">
+        Search, filter and sort real facts about a sample of countries. This
+        table is built from a JavaScript list (an array of objects) - try
+        changing the controls and watch the table redraw itself instantly.
+      </p>
+
+      <!-- Controls: a search box, a continent filter and sort controls.
+           These are all standard HTML FORM ELEMENTS, even though they
+           are not inside one big <form> that gets submitted. -->
+      <div class="controls-bar">
+        <div class="control">
+          <label for="search-input">Search by name or continent</label>
+          <input type="search" id="search-input" placeholder="Try 'Africa' or 'Japan'" autocomplete="off">
+        </div>
+
+        <div class="control">
+          <label for="continent-filter">Filter by continent</label>
+          <select id="continent-filter">
+            <option value="all">All continents</option>
+            <!-- Options are filled in automatically by script.js -->
+          </select>
+        </div>
+
+        <div class="control">
+          <label for="sort-field">Sort by</label>
+          <select id="sort-field">
+            <option value="name">Country name</option>
+            <option value="population">Population</option>
+            <option value="area">Area (km&sup2;)</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <label for="sort-direction-label">Order</label>
+          <button type="button" id="sort-direction-btn" aria-pressed="false">
+            <span id="sort-direction-label">Ascending</span>
+            <span id="sort-direction-arrow" aria-hidden="true">&#8593;</span>
+          </button>
+        </div>
+      </div>
+
+      <p id="result-count" aria-live="polite">Showing all countries.</p>
+
+      <!-- The ATLAS TABLE. On a phone, styles.css turns each row into a
+           small "card" using the data-label attributes on each cell -
+           that's how one HTML table can satisfy both "cards" and
+           "table" at once, responsively. -->
+      <div class="table-wrap">
+        <table id="atlas-table">
+          <caption class="sr-only">Sortable, filterable table of country facts</caption>
+          <thead>
+            <tr>
+              <th scope="col">Flag</th>
+              <th scope="col">Country</th>
+              <th scope="col">Continent</th>
+              <th scope="col">Capital</th>
+              <th scope="col">Population</th>
+              <th scope="col">Area (km&sup2;)</th>
+              <th scope="col">Did you know?</th>
+            </tr>
+          </thead>
+          <tbody id="atlas-tbody">
+            <!-- Rows are created by script.js using document.createElement -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FRAMES demo: showing a whole separate page inside this one. -->
+      <div class="fact-frame-wrap">
+        <h3>Fact of the day <span class="tag">iframe demo</span></h3>
+        <p class="small-note">
+          The box below is a completely separate file
+          (<code>fact-of-the-day.html</code>) displayed inside this page
+          using an <code>&lt;iframe&gt;</code>. Long ago, sites used an
+          older tag called <code>&lt;frameset&gt;</code> for this; iframe
+          is the modern, still-supported way to do the same thing.
+        </p>
+        <iframe src="fact-of-the-day.html" title="Random geography fact" class="fact-frame" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <!-- ============ LEARNING MAP (syllabus -> feature mapping) ============ -->
+    <section class="section" id="learning-map" aria-labelledby="learning-heading">
+      <h2 id="learning-heading">Learning map: syllabus &#8594; website feature</h2>
+      <p class="section-intro">
+        This section is for the teacher (and any curious student). It lines
+        up every syllabus topic with the exact place it is demonstrated.
+      </p>
+
+      <div class="table-wrap">
+        <table id="learning-table">
+          <caption class="sr-only">Syllabus topics mapped to files and features</caption>
+          <thead>
+            <tr>
+              <th scope="col">Unit</th>
+              <th scope="col">Topic</th>
+              <th scope="col">Where it lives</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td data-label="Unit">Unit 1</td><td data-label="Topic">Internet &amp; web design basics</td><td data-label="Where it lives">"How the web works" steps, this page (<code>index.html</code>)</td></tr>
+            <tr><td data-label="Unit">Unit 1</td><td data-label="Topic">Web architecture</td><td data-label="Where it lives">Architecture diagram above, showing how HTML + CSS + JS combine</td></tr>
+            <tr><td data-label="Unit">Unit 2</td><td data-label="Topic">HTML &amp; creating web pages</td><td data-label="Where it lives">Whole structure of <code>index.html</code> and <code>fact-of-the-day.html</code></td></tr>
+            <tr><td data-label="Unit">Unit 2</td><td data-label="Topic">Lists</td><td data-label="Where it lives">Nav menu (<code>&lt;ul&gt;</code>), footer links, steps list (<code>&lt;ol&gt;</code>)</td></tr>
+            <tr><td data-label="Unit">Unit 2</td><td data-label="Topic">Hyperlinks</td><td data-label="Where it lives">Nav links, footer links, external resource links in About</td></tr>
+            <tr><td data-label="Unit">Unit 2</td><td data-label="Topic">Tables</td><td data-label="Where it lives">Atlas data table and this learning-map table</td></tr>
+            <tr><td data-label="Unit">Unit 2</td><td data-label="Topic">Web forms</td><td data-label="Where it lives">Contact/feedback form in the About &amp; Contact section</td></tr>
+            <tr><td data-label="Unit">Unit 2</td><td data-label="Topic">Inserting images</td><td data-label="Where it lives">Flag images in the Atlas table, with alt text and a fallback</td></tr>
+            <tr><td data-label="Unit">Unit 2</td><td data-label="Topic">Frames</td><td data-label="Where it lives">"Fact of the day" <code>&lt;iframe&gt;</code> in the Atlas section</td></tr>
+            <tr><td data-label="Unit">Unit 3</td><td data-label="Topic">Creating/importing stylesheets</td><td data-label="Where it lives"><code>&lt;link&gt;</code> to <code>styles.css</code> and to Google Fonts, top of <code>index.html</code></td></tr>
+            <tr><td data-label="Unit">Unit 3</td><td data-label="Topic">Backgrounds, text, fonts</td><td data-label="Where it lives">Hero background, headings, body font rules in <code>styles.css</code></td></tr>
+            <tr><td data-label="Unit">Unit 3</td><td data-label="Topic">CSS rules, selectors, style types</td><td data-label="Where it lives">Commented examples (type, class, ID, attribute selectors) in <code>styles.css</code></td></tr>
+            <tr><td data-label="Unit">Unit 3</td><td data-label="Topic">CSS cascade</td><td data-label="Where it lives">"Cascade demo" comment block in <code>styles.css</code></td></tr>
+            <tr><td data-label="Unit">Unit 3</td><td data-label="Topic">Block elements &amp; objects</td><td data-label="Where it lives">Architecture diagram boxes; display property notes in <code>styles.css</code></td></tr>
+            <tr><td data-label="Unit">Unit 3</td><td data-label="Topic">Lists &amp; tables (styling)</td><td data-label="Where it lives">Nav list styling and Atlas table styling in <code>styles.css</code></td></tr>
+            <tr><td data-label="Unit">Unit 3</td><td data-label="Topic">CSS IDs &amp; classes</td><td data-label="Where it lives"><code>#site-header</code> (ID) vs <code>.btn</code>/<code>.card</code> (classes), explained in <code>styles.css</code></td></tr>
+            <tr><td data-label="Unit">Unit 3</td><td data-label="Topic">Box model: border, padding, margin</td><td data-label="Where it lives">The Box Model Playground below (sliders you can drag)</td></tr>
+            <tr><td data-label="Unit">Unit 4</td><td data-label="Topic">DOM</td><td data-label="Where it lives">Almost every function in <code>script.js</code> reads or changes the page</td></tr>
+            <tr><td data-label="Unit">Unit 4</td><td data-label="Topic">Data types &amp; variables</td><td data-label="Where it lives">The <code>countries</code> array and quiz data at the top of <code>script.js</code></td></tr>
+            <tr><td data-label="Unit">Unit 4</td><td data-label="Topic">Functions, methods, events</td><td data-label="Where it lives"><code>renderTable()</code>, <code>addEventListener</code> calls throughout <code>script.js</code></td></tr>
+            <tr><td data-label="Unit">Unit 4</td><td data-label="Topic">Program flow</td><td data-label="Where it lives">if/else and loops inside sorting, filtering and the quiz logic</td></tr>
+            <tr><td data-label="Unit">Unit 4</td><td data-label="Topic">Built-in objects &amp; operators</td><td data-label="Where it lives"><code>Math</code>, <code>Date</code>, comparison/logical operators in <code>script.js</code></td></tr>
+            <tr><td data-label="Unit">Unit 4</td><td data-label="Topic">Form validation</td><td data-label="Where it lives"><code>validateForm()</code> function checking the Contact form</td></tr>
+          </tbody>
+        </table>
+      </div>     
+    </section>
+
+    <!-- ============ QUIZ SECTION ============ -->
+    <section class="section" id="quiz" aria-labelledby="quiz-heading">
+      <h2 id="quiz-heading">Geography quiz</h2>
+      <p class="section-intro">Five quick questions. See how many you can get right!</p>
+
+      <div id="quiz-app" class="quiz-app">
+        <p id="quiz-progress"></p>
+        <h3 id="quiz-question">Loading question&hellip;</h3>
+        <div id="quiz-options" class="quiz-options" role="group" aria-label="Answer options"></div>
+        <p id="quiz-feedback" aria-live="polite"></p>
+        <div class="quiz-actions">
+          <button type="button" id="quiz-next" disabled>Next question</button>
+          <button type="button" id="quiz-restart" hidden>Play again</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT SECTION ============ -->
+    <section class="section" id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About this project</h2>
+      <p class="section-intro">
+        World Atlas is a teaching example. It was built to show, in one small
+        real project, how a beginner web-design course fits together.
+      </p>
+
+      <div class="about-grid">
+        <div>
+          <h3>What you can learn from it</h3>
+          <ul>
+            <li>How HTML gives a page structure: headings, lists, tables, links, forms and images.</li>
+            <li>How CSS controls appearance: colours, fonts, spacing, and the box model.</li>
+            <li>How JavaScript adds behaviour: reading data, responding to clicks and typing, and updating the page live.</li>
+            <li>How the three files above are linked together into one working website.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Useful links to learn more</h3>
+          <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener">MDN: HTML basics</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener">MDN: CSS basics</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener">MDN: JavaScript basics</a></li>
+            <li><a href="https://www.w3schools.com/" target="_blank" rel="noopener">W3Schools: try-it-yourself editors</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT / FEEDBACK FORM (Unit 2 web forms + Unit 4 validation) ============ -->
+    <section class="section" id="contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Send feedback about this Atlas</h2>
+      <p class="section-intro">
+        This form does not really send an email - it is here to demonstrate an
+        HTML form checked live by JavaScript. Try submitting it empty first!
+      </p>
+
+      <form id="feedback-form" novalidate>
+        <div class="form-row">
+          <label for="fb-name">Your name</label>
+          <input type="text" id="fb-name" name="name" placeholder="e.g. Asha Verma">
+          <span class="error-text" id="fb-name-error"></span>
+        </div>
+
+        <div class="form-row">
+          <label for="fb-email">Your email</label>
+          <input type="email" id="fb-email" name="email" placeholder="e.g. asha@example.com">
+          <span class="error-text" id="fb-email-error"></span>
+        </div>
+
+        <div class="form-row">
+          <label for="fb-continent">Favourite continent</label>
+          <select id="fb-continent" name="continent">
+            <option value="">Choose one&hellip;</option>
+            <option>Africa</option>
+            <option>Asia</option>
+            <option>Europe</option>
+            <option>North America</option>
+            <option>South America</option>
+            <option>Oceania</option>
+            <option>Antarctica</option>
+          </select>
+          <span class="error-text" id="fb-continent-error"></span>
+        </div>
+
+        <div class="form-row">
+          <label for="fb-message">Your feedback</label>
+          <textarea id="fb-message" name="message" rows="4" placeholder="What did you like or want to see added?"></textarea>
+          <span class="error-text" id="fb-message-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Send feedback</button>
+        <p id="form-success" role="status"></p>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER (appears on every "page" of the site) ============ -->
+  <footer id="site-footer">
+    <div class="footer-inner">
+      <p>Made for learning: every part of this site is meant to be opened, read and changed. Keep exploring &mdash; the world is bigger than any one map.</p>
+      <ul class="footer-links">
+        <li><a href="#home">Back to top</a></li>
+        <li><a href="#learning-map">Teacher's learning map</a></li>
+        <li><a href="fact-of-the-day.html" target="_blank" rel="noopener">Open today's fact</a></li>
+      </ul>
+      <p class="fine-print" id="footer-year"></p>
+    </div>
+  </footer>
+
+  <!-- The script is linked at the end of the body so the HTML above it
+       has already been created before JavaScript tries to find it. -->
+  <script src="script.js"></script>
+</body>
+</html>
