@@ -365,59 +365,9 @@ tbody tr:nth-child(even) { background: #FDF9F0; }
   border-radius: var(--radius);
 }
 
-/* -----------------------------------------------------------------
-   9. BOX MODEL PLAYGROUND (interactive)
-   ----------------------------------------------------------------- */
-.box-model-demo {
-  margin-top: 40px;
-  background: var(--white);
-  padding: 22px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-.box-model-layout {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-top: 16px;
-}
-.box-model-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  min-width: 220px;
-}
-.box-model-controls input { width: 100%; }
-.box-model-stage {
-  flex: 1 1 260px;
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  background: var(--parchment-deep);
-  border-radius: var(--radius);
-}
-/* Each ".demo-layer" is labelled with its own background colour so the
-   four layers of the box model (margin, border, padding, content) are
-   visually easy to tell apart while the sliders change their sizes. */
-.demo-layer {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--ink);
-  text-align: center;
-}
-.demo-margin { background: #F6D9A8; border-radius: 8px; }
-.demo-border { background: var(--gold); border-style: solid; border-color: var(--terracotta); border-radius: 6px; }
-.demo-padding { background: #FFF8EA; }
-.demo-content {
-  background: var(--forest);
-  color: var(--white);
-  padding: 18px 24px;
-  border-radius: 4px;
-}
 
 /* -----------------------------------------------------------------
-   10. QUIZ
+   9. QUIZ
    ----------------------------------------------------------------- */
 .quiz-app {
   background: var(--white);
@@ -466,7 +416,7 @@ tbody tr:nth-child(even) { background: #FDF9F0; }
 .quiz-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* -----------------------------------------------------------------
-   11. ABOUT
+   10. ABOUT
    ----------------------------------------------------------------- */
 .about-grid {
   display: grid;
@@ -478,7 +428,7 @@ tbody tr:nth-child(even) { background: #FDF9F0; }
 .about-grid li { margin-bottom: 8px; }
 
 /* -----------------------------------------------------------------
-   12. CONTACT FORM (web forms + JS validation styling hooks)
+   11. CONTACT FORM (web forms + JS validation styling hooks)
    ----------------------------------------------------------------- */
 #feedback-form {
   max-width: 560px;
@@ -519,7 +469,7 @@ tbody tr:nth-child(even) { background: #FDF9F0; }
 }
 
 /* -----------------------------------------------------------------
-   13. FOOTER
+   12. FOOTER
    ----------------------------------------------------------------- */
 #site-footer {
   background: var(--ocean-deep);
@@ -543,7 +493,7 @@ tbody tr:nth-child(even) { background: #FDF9F0; }
 .fine-print { font-size: 0.85rem; color: #A9BAC2; }
 
 /* -----------------------------------------------------------------
-   14. RESPONSIVE BEHAVIOUR (phones, tablets, desktop)
+   13. RESPONSIVE BEHAVIOUR (phones, tablets, desktop)
    -----------------------------------------------------------------
    Media queries let different CSS rules apply depending on screen
    width. Rules lower down in the file, inside a matching @media
